@@ -29,7 +29,6 @@ To concentrate on the most competitive environments, the dataset was filtered to
 - **LCS** (North America)
 
 Here is the first few rows and columns of the data frame:
-
 | gameid           | datacompleteness   | url                                         | league   |   year |
 |:-----------------|:-------------------|:--------------------------------------------|:---------|-------:|
 | 8401-8401_game_1 | partial            | https://lpl.qq.com/es/stats.shtml?bmid=8401 | LPL      |   2022 |
@@ -46,7 +45,6 @@ The dataset contained a mix of **team stats** and **player stats**, which were o
 - This separation enabled more **targeted analysis** and avoided confusion between **team-level** and **individual-level** statistics.
 
 Here is the first first few rows and columns of the data frame containing player data:
-
 | position   |   damagetochampions |     dpm |   damageshare |   damagetakenperminute |
 |:-----------|--------------------:|--------:|--------------:|-----------------------:|
 | top        |               11188 | 491.78  |     0.279107  |                585.802 |
@@ -55,7 +53,26 @@ Here is the first first few rows and columns of the data frame containing player
 | bot        |                9618 | 422.769 |     0.239943  |                254.813 |
 | sup        |                2276 | 100.044 |     0.0567798 |                391.912 |
 
+**DPM vs WPM by Position Scatter Plot**
+<iframe
+  src="assets/Scatter-Plot-of-DPM-vs-WPM-by-Position.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+I created this scatter plots to analyze **damage per minute (DPM)** and **wards per minute (WPM)** for players in different positions. Interestingly, support players clustered distinctly from other positions along the **WPM** axis. This observation aligns with the role of support players, as vision control is a core responsibility of their position, naturally resulting in higher **WPM** values.
+
 ### Combining Data into Game-Level Summaries
 To gain a broader perspective, I further aggregated **team-level** statistics into **game-level summaries**. To do this:
 - I merged the two teams' data for each game into a single entry.
 - I grouped the combined data by the unique 'gameid' identifier.
+
+Here is the first first few rows and columns of the data frame containing game data:
+| gameid           | league   |   game kpm |   game dpm |
+|:-----------------|:---------|-----------:|-----------:|
+| 8401-8401_game_1 | LPL      |     0.8351 |    3099.03 |
+| 8401-8401_game_2 | LPL      |     1.2465 |    3942.17 |
+| 8402-8402_game_1 | LPL      |     0.6339 |    3251.22 |
+| 8402-8402_game_2 | LPL      |     0.502  |    3568.48 |
+| 8402-8402_game_3 | LPL      |     0.8526 |    3633.66 |
