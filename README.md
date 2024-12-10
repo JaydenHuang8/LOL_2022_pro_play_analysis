@@ -109,7 +109,7 @@ I created a histogram to look at the distribution of **damage per minute (DPM)**
 
 To delve deeper, I separated the data by leagues and overlapped the **DPM** histograms of different leagues on top of each other. This analysis revealed that **LPL** games tend to have a higher **DPM** compared to other leagues. This could suggest that **LPL** games have more **action**, as a higher **DPM** indicates more damage is being dealt to champions, which can be a good indicator of increased action.
 
-### Assessment of Missingness
+# Assessment of Missingness
 
 ## The Column in Question
 
@@ -137,6 +137,19 @@ First, I plotted the distribution of league for when url is missing and when url
 
 Just by looking alone, the two distribution is very different.
 
+## Permutation Test
+I want to use a permutation test to test the following hypothesis:
+
+### Hypothesis:
+- **Null Hypothesis (H0)**: The distribution of leagues when the 'url' is missing is **the same** as the distribution of leagues when the 'url' is not missing.
+- **Alternative Hypothesis (Ha)**: The distribution of leagues when the 'url' is missing is **different** from the distribution of leagues when the 'url' is not missing.
+
+### Test Statistic:
+- **Test Statistic**: **Total Variation Distance (TVD)**
+- **Alpha Level**: 0.05
+
+I used a permutation test because I want to test the difference between two distributions: the distribution of leagues when the **'url'** is **missing** versus when it is **not missing**. The **Total Variation Distance (TVD)** is appropriate here as it quantifies the difference between these two distributions. Lastly, alpha level of **0.05** is a standard choice, providing a 5% threshold for statistical significance.
+
 ## Permutation Test Results
 
 **Empirical Distribution of TVDs**
@@ -146,3 +159,40 @@ Just by looking alone, the two distribution is very different.
   height="400"
   frameborder="0"
 ></iframe>
+
+The **permutation test** resulted in a **p-value close to 0**, indicating that the observed difference in the distribution of leagues when the 'url' is missing is **statistically significant**.
+
+This suggests that the missingness of the 'url' is **not Not Missing at Random (NMAR)**. Instead, the missingness of the 'url' is more likely associated with a **Missing at Random (MAR)** relationship with the league column. 
+
+# Hypothesis Testing
+
+Earlier during exploratory data analysis, I noticed that LPL games appear to have a higher **DPM** than other leagues, which could suggest that LPL games have more action. Now, it's time to formally test whether this observation holds true statistically.
+
+I want to use a permutation test to test the following hypothesis:
+
+### Hypothesis:
+- **Null Hypothesis (H0)**: There is **no difference** in the mean **Damage per minute (DPM)** between **LPL** and the other tier one leagues (**LCK**, **LEC**, **LCS**).
+- **Alternative Hypothesis (Ha)**: **LPL** has a **higher mean DPM** compared to the other tier one leagues (**LCK**, **LEC**, **LCS**).
+
+### Test Statistic:
+- **Test Statistic**: **Difference in mean**
+- **Alpha Level**: 0.05
+
+I used a permutation test because I want to test the difference between two distributions: the **DPM** values of **LPL** versus the **DPM** values of the other tier one leagues (**LCK, LEC, LCS**). The **difference in mean game DPM** is used as the test statistic because it allows us to see the direction of the difference — specifically, whether LPL has a **higher** mean DPM compared to the other leagues. The alpha level of **0.05** is once again the standard choice.
+
+## Hypothesis Test Results
+
+**Empirical Distribution of Difference in Mean DPM**
+<iframe
+  src="assets/Empirical-Distribution-of-Difference-in-Mean-DPM.html"
+  width="600"
+  height="400"
+  frameborder="0"
+></iframe>
+
+The **permutation test** resulted in a **p-value close to 0**, meaning that it is statistically significant that **LPL** games have a higher **mean DPM** than other tier one leagues (**LCK**, **LEC**, **LCS**).
+
+This suggests that there is **more action** in **LPL games** compared to the other tier one leagues. The higher **DPM** could be indicative of **more frequent or intense fights** in **LPL matches**, reflecting a more aggressive playing style.
+
+This result align with my personal veiwing experience that **LPL** games tend to be more action-packed and exciting to watch.
+
