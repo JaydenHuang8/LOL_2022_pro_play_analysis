@@ -56,8 +56,8 @@ Here is the first first few rows and columns of the data frame containing player
 **DPM vs WPM by Position Scatter Plot**
 <iframe
   src="assets/Scatter-Plot-of-DPM-vs-WPM-by-Position.html"
-  width="800"
-  height="600"
+  width="600"
+  height="400"
   frameborder="0"
 ></iframe>
 
@@ -76,3 +76,13 @@ Here is the first first few rows and columns of the data frame containing game d
 | 8402-8402_game_1 | LPL      |     0.6339 |    3251.22 |
 | 8402-8402_game_2 | LPL      |     0.502  |    3568.48 |
 | 8402-8402_game_3 | LPL      |     0.8526 |    3633.66 |
+
+**Damage Per Minute of Games Histogram**
+<iframe
+  src="assets/Histogram-of-Damage-Per-Minute-of-Games.html"
+  width="600"
+  height="400"
+  frameborder="0"
+></iframe>
+
+I created a scatter plot to look at the distribution of **damage per minute (DPM)** across each game. It turns out that, similar to many other datasets, it also follows a **Normal distribution**.
