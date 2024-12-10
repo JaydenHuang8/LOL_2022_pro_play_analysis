@@ -29,6 +29,7 @@ To concentrate on the most competitive environments, the dataset was filtered to
 - **LCS** (North America)
 
 Here is the first few rows and columns of the data frame:
+
 | gameid           | datacompleteness   | url                                         | league   |   year |
 |:-----------------|:-------------------|:--------------------------------------------|:---------|-------:|
 | 8401-8401_game_1 | partial            | https://lpl.qq.com/es/stats.shtml?bmid=8401 | LPL      |   2022 |
@@ -45,6 +46,7 @@ The dataset contained a mix of **team stats** and **player stats**, which were o
 - This separation enabled more **targeted analysis** and avoided confusion between **team-level** and **individual-level** statistics.
 
 Here is the first first few rows and columns of the data frame containing player data:
+
 | position   |   damagetochampions |     dpm |   damageshare |   damagetakenperminute |
 |:-----------|--------------------:|--------:|--------------:|-----------------------:|
 | top        |               11188 | 491.78  |     0.279107  |                585.802 |
@@ -69,6 +71,7 @@ To gain a broader perspective, I further aggregated **team-level** statistics in
 - I grouped the combined data by the unique 'gameid' identifier.
 
 Here is the first first few rows and columns of the data frame containing game data:
+
 | gameid           | league   |   game kpm |   game dpm |
 |:-----------------|:---------|-----------:|-----------:|
 | 8401-8401_game_1 | LPL      |     0.8351 |    3099.03 |
@@ -85,4 +88,14 @@ Here is the first first few rows and columns of the data frame containing game d
   frameborder="0"
 ></iframe>
 
-I created a scatter plot to look at the distribution of **damage per minute (DPM)** across each game. It turns out that, similar to many other datasets, it also follows a **Normal distribution**.
+I created a histogram to look at the distribution of **damage per minute (DPM)** across each game. It turns out that, similar to many other datasets, it also follows a **Normal distribution**.
+
+**Damage Per Minute of Games by League Histogram**
+<iframe
+  src="assets/Histogram of DPM per Game (Damage Per Minute) by League.html"
+  width="600"
+  height="400"
+  frameborder="0"
+></iframe>
+
+To delve deeper, I separated the data by leagues and overlapped the **DPM** histograms of different leagues on top of each other. This analysis revealed that **LPL** games tend to have a higher DPM compared to other leagues. This could suggest that **LPL** games have more **action**, as a higher **DPM** indicates more damage is being dealt to champions, which can be a good indicator of increased action.
