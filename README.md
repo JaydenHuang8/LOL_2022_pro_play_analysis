@@ -198,3 +198,94 @@ This result align with my personal veiwing experience that **LPL** games tend to
 
 # Framing a Prediction Problem
 
+## Prediction Problem and Type
+
+Earlier during exploratory data analysis, I noticed that **support** players **cluster** around higher **wards per minute (WPM)** values, and wondered whether **other positions** will have a **similiar clustering** in other stats.
+
+So I want to addressing the following **classification problem**: **How can I predict the position of a player using their performance stats in the game?** This is a **multiclass classification problem** where I aim to predict the position a player in the game — **top**, **jungle**, **mid**, **bot**, or **support**. 
+
+Since I am predicting the position of a player based on their performance, I will focus on **post-game stats**. These metrics are final values collected at the end of a match, providing a comprehensive summary of a player's contributions and performance during the game. 
+
+### Response Variable:
+- **Variable to Predict**: Player position (**top**, **jungle**, **mid**, **bot**, **support**).
+- **Reason for Choice**: Players in different positions have **distinct roles** and **focus on different aspects** of the game, which is reflected their stats that vary across positions.
+
+### Model Choice:
+Given this setup, a **K-Nearest Neighbors (KNN)** model is suitable because **players with similar roles** are likely to **cluster** around similar stat values, making KNN effective in capturing these relationships.
+
+### Evaluation Metric:
+- **Metric**: **Accuracy**.
+- **Reason for Choice**: While accuracy is a common metric, it is especially useful in multiclass classification when the goal is to have the **highest proportion of correctly predicted classes**. Since each game will have one of each class on each sides the class distribution is uniform, and so accuracy will give a straightforward measure of overall model performance.
+
+# Baseline Model
+
+I first created a very simple **K-Nearest Neighbors (KNN)** model by selecting some relevant quantitative features and using them directly without applying any modifications or transformations.
+
+## Features
+
+The following features are I used in this simple model:
+
+### Damage and Gold Metrics:
+- **damagetochampions**: Total damage dealt to champions.
+- **dpm (damage per minute)**: Damage dealt to champions per minute.
+- **damageshare**: Percentage of team damage dealt.
+- **damagetakenperminute**: Damage taken per minute.
+- **totalgold**: Total gold earned.
+- **earnedgold**: Gold earned through gameplay.
+- **earned gpm (gold per minute)**: Gold earned per minute.
+- **earnedgoldshare**: Percentage of team gold earned.
+- **goldspent**: Gold spent on items and upgrades.
+
+### Vision and Ward Metrics:
+- **wardsplaced**: Number of wards placed.
+- **wpm (wards per minute)**: Wards placed per minute.
+- **wardskilled**: Number of enemy wards destroyed.
+- **wcpm (wards cleared per minute)**: Wards cleared per minute.
+- **controlwardsbought**: Number of control wards purchased.
+- **visionscore**: Overall vision score.
+- **vspm (vision score per minute)**: Vision score per minute.
+
+All these features are quantitative features. These 16 features covers a wide range of in-game aspects, from **damage and resource generation** to **vision control and map influence**. By covering all these diverse areas, the model can provide a **comprehensive picture of a player's play style**, enabling clear clustering by position.
+
+## A Proof of Concept
+
+The accuracy of this simple model is **0.60**. While this is not exceptionally high, it serves as a solid starting point and demonstrates proof of concept. It indicates that the model is capturing some meaningful patterns in the data and can differentiate between player positions to a reasonable extent. This result suggests that the approach is promising, and with further refinement—such as feature scaling, hyperparameter tuning, or incorporating additional features—the model’s performance can likely be improved.
+
+# Final Model
+
+## Model Improvements: K-Nearest Neighbors (KNN)
+Since the **K-Nearest Neighbors (KNN)** model performed reasonably well in the baseline model, I decided to continue using it and focus on making improvements.
+
+### Feature Standardization:
+- I standardized all the features to ensure that no single column with larger values disproportionately influenced the **distance calculations** in the KNN model.
+- Standardization also allowed for better measurement of a player's performance **relative to the average**, highlighting each role's specific focus more effectively.
+
+### Hyperparameter Tuning:
+- Using **GridSearchCV**, I searched for the optimal value of **n_neighbors** in the range of 1 to 30.
+- The best value was found to be **20**, which balanced the trade-off between **bias** and **variance** effectively.
+
+### Improved Accuracy:
+- The accuracy of the final model increased from **0.6** in the baseline to **0.78** after these improvements—a significant enhancement.
+- This improvement demonstrates that the refinements successfully captured the **nuances of player roles** and boosted the model's performance.
+
+### Confusion Matrices
+
+Here is the comparison of the confusion matrices for the **baseline model** and the **final model** to help with visualizing the two model's difference in performance.
+
+**Confusion Matrix of Base Model**
+<iframe
+  src="assets/CM-base.html"
+  width="600"
+  height="400"
+  frameborder="0"
+></iframe>
+
+**Confusion Matrix of Final Model**
+<iframe
+  src="assets/CM-final.html"
+  width="600"
+  height="400"
+  frameborder="0"
+></iframe>
+
+For the **final model**, you can see that more predictions **land on the diagonal**, which indicates more correct predictions of player positions. This improvement reflects the impact of enhancements like feature standardization and hyperparameter tuning on the model's accuracy.
