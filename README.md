@@ -18,3 +18,44 @@ League of Legend is the largest esport game in the world, and the dataset I'm us
 Understanding these metrics can provide insights into player and team strategies that could be critical for improving performance and achieving success in competitive League of Legends matches.
 
 ## Data Cleaning and Exploratory Data Analysis
+
+In order to prepare the dataset for analysis, I took several steps to clean up the data.
+
+### Filtering Top Tier Leagues
+To concentrate on the most competitive environments, the dataset was filtered to include only games from the **four top-tier leagues**:
+- **LPL** (China)
+- **LCK** (Korea)
+- **LEC** (Europe)
+- **LCS** (North America)
+
+Here is the first few rows and columns of the data frame:
+
+| gameid           | datacompleteness   | url                                         | league   |   year |
+|:-----------------|:-------------------|:--------------------------------------------|:---------|-------:|
+| 8401-8401_game_1 | partial            | https://lpl.qq.com/es/stats.shtml?bmid=8401 | LPL      |   2022 |
+| 8401-8401_game_1 | partial            | https://lpl.qq.com/es/stats.shtml?bmid=8401 | LPL      |   2022 |
+| 8401-8401_game_1 | partial            | https://lpl.qq.com/es/stats.shtml?bmid=8401 | LPL      |   2022 |
+| 8401-8401_game_1 | partial            | https://lpl.qq.com/es/stats.shtml?bmid=8401 | LPL      |   2022 |
+| 8401-8401_game_1 | partial            | https://lpl.qq.com/es/stats.shtml?bmid=8401 | LPL      |   2022 |
+
+This step ensured that the analysis focuses on high-level professional play, providing insights into the strategies and performance of the best teams and players.
+
+### Organizing Data Formats
+The dataset contained a mix of **team stats** and **player stats**, which were organized differently. To address this:
+- I created separate DataFrames for **team data** and **player data**, ensuring that each DataFrame included only the **relevant columns** specific to its type of data.
+- This separation enabled more **targeted analysis** and avoided confusion between **team-level** and **individual-level** statistics.
+
+Here is the first first few rows and columns of the data frame containing player data:
+
+| position   |   damagetochampions |     dpm |   damageshare |   damagetakenperminute |
+|:-----------|--------------------:|--------:|--------------:|-----------------------:|
+| top        |               11188 | 491.78  |     0.279107  |                585.802 |
+| jng        |                4426 | 194.549 |     0.110416  |                828.835 |
+| mid        |               12577 | 552.835 |     0.313755  |                201.89  |
+| bot        |                9618 | 422.769 |     0.239943  |                254.813 |
+| sup        |                2276 | 100.044 |     0.0567798 |                391.912 |
+
+### Combining Data into Game-Level Summaries
+To gain a broader perspective, I further aggregated **team-level** statistics into **game-level summaries**. To do this:
+- I merged the two teams' data for each game into a single entry.
+- I grouped the combined data by the unique 'gameid' identifier.
