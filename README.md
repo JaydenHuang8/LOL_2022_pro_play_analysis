@@ -92,7 +92,7 @@ I created a histogram to look at the distribution of **damage per minute (DPM)**
 
 **Damage Per Minute of Games by League Histogram**
 <iframe
-  src="assets/Histogram of DPM per Game (Damage Per Minute) by League.html"
+  src="assets/Histogram-of-DPM-per-Game-by-League.html"
   width="600"
   height="400"
   frameborder="0"
