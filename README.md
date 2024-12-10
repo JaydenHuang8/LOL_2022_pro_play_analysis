@@ -101,7 +101,7 @@ I created a histogram to look at the distribution of **damage per minute (DPM)**
 
 **Damage Per Minute of Games by League Histogram**
 <iframe
-  src="assets/Histogram-of-DPM-per-Game-by-League.html"
+  src="assets/Histogram-of-DPM-per-Game-by-League2.html"
   width="600"
   height="400"
   frameborder="0"
@@ -160,9 +160,9 @@ I used a permutation test because I want to test the difference between two dist
   frameborder="0"
 ></iframe>
 
-The **permutation test** resulted in a **p-value close to 0**, indicating that the observed difference in the distribution of leagues when the 'url' is missing is **statistically significant**.
+The **permutation test** resulted in a **p-value close to 0**, suggests that the observed difference in the distribution of leagues when the 'url' is missing is **statistically significant**.
 
-This suggests that the missingness of the 'url' is **not Not Missing at Random (NMAR)**. Instead, the missingness of the 'url' is more likely associated with a **Missing at Random (MAR)** relationship with the league column. 
+This implies that the missingness of the 'url' is **not Not Missing at Random (NMAR)**. Instead, the missingness of the 'url' is more likely associated with a **Missing at Random (MAR)** relationship with the league column. 
 
 # Hypothesis Testing
 
@@ -190,9 +190,11 @@ I used a permutation test because I want to test the difference between two dist
   frameborder="0"
 ></iframe>
 
-The **permutation test** resulted in a **p-value close to 0**, meaning that it is statistically significant that **LPL** games have a higher **mean DPM** than other tier one leagues (**LCK**, **LEC**, **LCS**).
+The **permutation test** resulted in a **p-value close to 0**, which suggests that **LPL** games have a higher **mean DPM** than other tier one leagues (**LCK**, **LEC**, **LCS**).
 
-This suggests that there is **more action** in **LPL games** compared to the other tier one leagues. The higher **DPM** could be indicative of **more frequent or intense fights** in **LPL matches**, reflecting a more aggressive playing style.
+This implies that there is **more action** in **LPL games** compared to the other tier one leagues. The higher **DPM** could be indicative of **more frequent or intense fights** in **LPL matches**, reflecting a more aggressive playing style.
 
 This result align with my personal veiwing experience that **LPL** games tend to be more action-packed and exciting to watch.
+
+# Framing a Prediction Problem
 
