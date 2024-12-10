@@ -4,7 +4,7 @@ A data science project for DSC80 course in UCSD
 
 ## Introduction
 
-League of Legend is the largest esport game in the world, and the dataset I'm using contains esports match data from the 2022 season of League of Legends. The primary goal of this project is to explore whether there are differences in performance across different professional leagues and player positions. Analyzing pro play data like this is crucial for pro play teams to develop winning strategies and  identify high-performing players. I want to see how various factors influence success in the game, and I’m particularly eager to dive into this analysis because I'm an experienced League of Legends player who has followed pro play for years.
+League of Legend is the largest esport game in the world, and the dataset I'm using contains esports match data from the 2022 season of League of Legends. The primary goal of this project is to explore whether there are differences in performance across different professional leagues and player positions. Analyzing pro play data like this is crucial for pro play teams to develop winning strategies and  identify high-performing players. I want to see how various factors influence success in the game, and I'm particularly eager to dive into this analysis because I'm an experienced League of Legends player who has followed pro play for years.
 
 ### Key Details:
 - **Number of Rows**: 150,180
@@ -148,7 +148,7 @@ I want to use a permutation test to test the following hypothesis:
 - **Test Statistic**: **Total Variation Distance (TVD)**
 - **Alpha Level**: 0.05
 
-I used a permutation test because I want to test the difference between two distributions: the distribution of leagues when the **'url'** is **missing** versus when it is **not missing**. The **Total Variation Distance (TVD)** is appropriate here as it quantifies the difference between these two distributions. Lastly, alpha level of **0.05** is a standard choice, providing a 5% threshold for statistical significance.
+I used a **permutation test** because I want to test the difference between **two distributions**: the distribution of leagues when the **'url'** is **missing** versus when it is **not missing**. The **Total Variation Distance (TVD)** is appropriate here as it quantifies the difference between these two distributions. Lastly, alpha level of **0.05** is a standard choice, providing a 5% threshold for statistical significance.
 
 ## Permutation Test Results
 
@@ -178,7 +178,7 @@ I want to use a permutation test to test the following hypothesis:
 - **Test Statistic**: **Difference in mean**
 - **Alpha Level**: 0.05
 
-I used a permutation test because I want to test the difference between two distributions: the **DPM** values of **LPL** versus the **DPM** values of the other tier one leagues (**LCK, LEC, LCS**). The **difference in mean game DPM** is used as the test statistic because it allows us to see the direction of the difference — specifically, whether LPL has a **higher** mean DPM compared to the other leagues. The alpha level of **0.05** is once again the standard choice.
+I used a **permutation test** because I want to test the difference between **two distributions**: the **DPM** values of **LPL** versus the **DPM** values of the other tier one leagues (**LCK, LEC, LCS**). The **difference in mean game DPM** is used as the test statistic because it allows me to see the direction of the difference — specifically, whether LPL has a **higher** mean DPM compared to the other leagues. The alpha level of **0.05** is once again the standard choice.
 
 ## Hypothesis Test Results
 
@@ -249,7 +249,7 @@ All these features are quantitative features. These 16 features covers a wide ra
 
 ## A Proof of Concept
 
-The accuracy of this simple model is **0.60**. While this is not exceptionally high, it serves as a solid starting point and demonstrates proof of concept. It indicates that the model is capturing some meaningful patterns in the data and can differentiate between player positions to a reasonable extent. This result suggests that the approach is promising, and with further refinement—such as feature scaling, hyperparameter tuning, or incorporating additional features—the model’s performance can likely be improved.
+The accuracy of this simple model is **0.60**. While this is not exceptionally high, it serves as a solid starting point and demonstrates proof of concept. It indicates that the model is capturing some meaningful patterns in the data and can differentiate between player positions to a reasonable extent. This result suggests that the approach is promising, and with further refinement—such as feature scaling, hyperparameter tuning, or incorporating additional features—the model's performance can likely be improved.
 
 # Final Model
 
@@ -289,3 +289,63 @@ Here is the comparison of the confusion matrices for the **baseline model** and 
 ></iframe>
 
 For the **final model**, you can see that more predictions **land on the diagonal**, which indicates more correct predictions of player positions. This improvement reflects the impact of enhancements like feature standardization and hyperparameter tuning on the model's accuracy.
+
+# Fairness Analysis
+
+**Precision** is an important metric for a classification model like this, so I want to see if my model has achieved **precision parity**.
+
+The question I want to answer is: Does my model perform worse for **players in LPL** than it does for **players not in LPL**?
+
+## Test for Precision Parity Across LPL and Non-LPL players
+
+### Hypothesis:
+- **Null Hypothesis (H0)**: The model is **fair**. The model performs **similarly** for players in **LPL** compared to players **not in LPL**.
+- **Alternative Hypothesis (Ha)**: The model is **unfair**. The model **performs better** for **LPL players** compared to players **not in LPL**.
+
+### Test Statistic:
+- **Test Statistic**: **Difference in Precision Score**
+- **Alpha Level**: 0.05
+
+I used a **permutation test** because I want to test the difference between **two distributions**: the **precision score** of LPL players versus the **precision score** of non-LPL players. The **difference in precision score** is used as the test statistic because it directly measures the model's performance in correctly predicting the position of LPL players versus non-LPL players. This metric will help me determine if the model performs better or worse for LPL players compared to players not in LPL.
+
+### Hypothesis Test Results
+
+**Empirical Distribution of Difference in Precision Score**
+<iframe
+  src="assets/Precision-Score-ED.html"
+  width="600"
+  height="400"
+  frameborder="0"
+></iframe>
+
+The permutation test resulted in a **p-value of 0.20**, suggesting that there isn't strong evidence against the null hypothesis. This implies that the model's performance for players in LPL isn't significantly different from that for players not in LPL.
+
+Therefore, **precision parity holds**, meaning the model performs similarly for both LPL and non-LPL players.
+
+## Test for Precision Parity Across Support and Non-LPL players
+
+Eariler during exploratory data analysis, I noticed that support players have an obvious clustering in the **wards per minute (WPM)** feature, suggesting that this specific stat could be a key indicator for differentiating support players from non-support players. I wonder whether this clustering will actually make the model perform better for support players, potentially improving its accuracy in predicting the position for support players.
+
+### Hypothesis:
+- **Null Hypothesis (H0)**: The model is **fair**. The model performs **similarly** for players in **support** positions compared to players **not in support positions**.
+- **Alternative Hypothesis (Ha)**: The model is **unfair**. The model **performs better** for players in **support** positions compared to players **not in support positions**.
+
+### Test Statistic:
+- **Test Statistic**: **Difference in Precision Score**
+- **Alpha Level**: 0.05
+
+I used a **permutation test** because I want to test the difference between **two distributions**: the precision score of Support players versus the precision score of non-Support players. The **difference in precision score** is used as the test statistic because it directly measures the model's performance in correctly predicting the position of support players versus non-support players. This metric will help me determine if the model performs better or worse for support players compared to players not in support positions.
+
+### Hypothesis Test Results
+
+**Empirical Distribution of Difference in Precision Score**
+<iframe
+  src="assets/Precision-Score-ED-sup.html"
+  width="600"
+  height="400"
+  frameborder="0"
+></iframe>
+
+The permutation test resulted in a **p-value close to zero**, suggesting that there is strong evidence against the null hypothesis. This implies that the model's performance for support players is significantly different from that for non-support players.
+
+Therefore, **precision parity do not hold**, meaning the model performs better for support than non-support players. This result confirms my earlier suspicion that the model performs better for support players.
