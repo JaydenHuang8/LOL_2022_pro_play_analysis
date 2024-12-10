@@ -165,6 +165,37 @@ The **permutation test** resulted in a **p-value close to 0**, suggests that the
 
 This implies that the missingness of the 'url' is **not Not Missing at Random (NMAR)**. Instead, the missingness of the 'url' is more likely associated with a **Missing at Random (MAR)** relationship with the league column. 
 
+## A Different Column 
+
+The missingness in the **'url'** column could also be related to the **'splits'** column in a **Missing at Random (MAR)** relationship, as different leagues might have varying policies ot focus across different splits. For example, some splits might emphasize specific tournaments or events that do not require centralized data reporting, leading to missing links.
+
+## Permutation Test
+I want to use a permutation test to test the following hypothesis:
+
+### Hypothesis:
+- **Null Hypothesis (H0)**: The distribution of splits when the 'url' is missing is **the same** as the distribution of splits when the 'url' is not missing.
+- **Alternative Hypothesis (Ha)**: The distribution of splits when the 'url' is missing is **different** from the distribution of splits when the 'url' is not missing.
+
+### Test Statistic:
+- **Test Statistic**: **Total Variation Distance (TVD)**
+- **Alpha Level**: 0.05
+
+I used a **permutation test** because I want to test the difference between **two distributions**: the distribution of splits when the **'url'** is **missing** versus when it is **not missing**. The **Total Variation Distance (TVD)** is appropriate here as it quantifies the difference between these two distributions. Lastly, alpha level of **0.05** is again a standard choice.
+
+## Permutation Test Results
+
+**Empirical Distribution of TVDs**
+<iframe
+  src="assets/ED-TVD-splits.html"
+  width="600"
+  height="400"
+  frameborder="0"
+></iframe>
+
+The **permutation test** resulted in a **p-value of 1**, suggests that the observed difference in the distribution of splits when the 'url' is missing is not **statistically significant**.
+
+This implies that the missingness of the 'url' is in a **not Missing at Random (MAR)** relationship with the league column. 
+
 # Hypothesis Testing
 
 Earlier during exploratory data analysis, I noticed that LPL games appear to have a higher **DPM** than other leagues, which could suggest that LPL games have more action. Now, it's time to formally test whether this observation holds true statistically.
