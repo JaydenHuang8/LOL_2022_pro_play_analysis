@@ -1,12 +1,13 @@
 # League of Legends Pro Games Analysis
-by Jayden Huang
-A data science project for DSC80 course in UCSD
 
-## Introduction
+A data science project for DSC80 course in UCSD
+by Jayden Huang
+
+# Introduction
 
 League of Legend is the largest esport game in the world, and the dataset I'm using contains esports match data from the 2022 season of League of Legends. The primary goal of this project is to explore whether there are differences in performance across different professional leagues and player positions. Analyzing pro play data like this is crucial for pro play teams to develop winning strategies and  identify high-performing players. I want to see how various factors influence success in the game, and I'm particularly eager to dive into this analysis because I'm an experienced League of Legends player who has followed pro play for years.
 
-### Key Details:
+## Key Details:
 - **Number of Rows**: 150,180
 - **Relevant Columns**:
   - **league**: The league in which the player competes.
@@ -14,14 +15,14 @@ League of Legend is the largest esport game in the world, and the dataset I'm us
   - **dpm**: Damage per minute, a measure of damage output.
   - **wpm**: Wards per minute, a measure of vision control in the game.
 
-### Why Should You Care?
+## Why Should You Care?
 Understanding these metrics can provide insights into player and team strategies that could be critical for improving performance and achieving success in competitive League of Legends matches.
 
 ## Data Cleaning and Exploratory Data Analysis
 
 In order to prepare the dataset for analysis, I took several steps to clean up the data.
 
-### Filtering Top Tier Leagues
+## Filtering Top Tier Leagues
 To concentrate on the most competitive environments, the dataset was filtered to include only games from the **four top-tier leagues**:
 - **LPL** (China)
 - **LCK** (Korea)
@@ -40,7 +41,7 @@ Here is the first few rows and columns of the data frame:
 
 This step ensured that the analysis focuses on high-level professional play, providing insights into the strategies and performance of the best teams and players.
 
-### Organizing Data Formats
+## Organizing Data Formats
 The dataset contained a mix of **team stats** and **player stats**, which were organized differently. To address this:
 - I created separate DataFrames for **team data** and **player data**, ensuring that each DataFrame included only the **relevant columns** specific to its type of data.
 - This separation enabled more **targeted analysis** and avoided confusion between **team-level** and **individual-level** statistics.
@@ -74,7 +75,7 @@ I created this scatter plots to analyze **damage per minute (DPM)** and **wards 
 
 I also created a pivot table to see if **DPM** varies between different player positions, and it does. **Bot lane** and **mid lane** consistently lead in DPM across all leagues. This makes sense because these positions typically serve as the primary damage dealers or carries for the team, which is reflected in their higher **DPM** values.
 
-### Combining Data into Game-Level Summaries
+## Combining Data into Game-Level Summaries
 To gain a broader perspective, I further aggregated **team-level** statistics into **game-level summaries**. To do this:
 - I merged the two teams' data for each game into a single entry.
 - I grouped the combined data by the unique 'gameid' identifier.
@@ -184,7 +185,7 @@ I used a **permutation test** because I want to test the difference between **tw
 
 **Empirical Distribution of Difference in Mean DPM**
 <iframe
-  src="assets/Empirical-Distribution-of-Difference-in-Mean-DPM.html"
+  src="assets/ED-Difference-in-Mean-DPM.html"
   width="600"
   height="400"
   frameborder="0"
@@ -312,7 +313,7 @@ I used a **permutation test** because I want to test the difference between **tw
 
 **Empirical Distribution of Difference in Precision Score**
 <iframe
-  src="assets/Precision-Score-ED.html"
+  src="assets/PS-ED-Diff.html"
   width="600"
   height="400"
   frameborder="0"
@@ -340,7 +341,7 @@ I used a **permutation test** because I want to test the difference between **tw
 
 **Empirical Distribution of Difference in Precision Score**
 <iframe
-  src="assets/Precision-Score-ED-sup.html"
+  src="assets/PS-ED-Diff-sup.html"
   width="600"
   height="400"
   frameborder="0"
